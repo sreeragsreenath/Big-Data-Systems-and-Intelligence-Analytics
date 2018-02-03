@@ -1,0 +1,1605 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Assignment 1 final}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Assignment 1 - Machine Learning (INFO 7390)
+Review}\label{assignment-1---machine-learning-info-7390-review}
+
+\subsection{Machine Learning Review}\label{machine-learning-review}
+
+    \subsubsection{Objective}\label{objective}
+
+    To find a public dataset or machine learning competition and use machine
+learning techniques to analyze the data.
+
+    \subsubsection{Dataset Selected}\label{dataset-selected}
+
+    For this assignment, I have selected Kaggle ML and Data Science Survey
+of 2017 dataset.
+
+The dataset can be found in the below link
+\href{https://www.kaggle.com/kaggle/kaggle-survey-2017}{Kaggle ML and
+Data Science Survey, 2017}
+
+Kaggle conducted an industry-wide survey to establish a comprehensive
+view of the state of data science and machine learning. The survey
+received over 16,000 responses and they learned a ton about who is
+working with data, what's happening at the cutting edge of machine
+learning across industries, and how new data scientists can best break
+into the field.
+
+    \subsubsection{Machine Learning study}\label{machine-learning-study}
+
+    From the survey data collected by Kaggle, We are going to determine the
+Tenure/Work experience of a Kaggle user. We are going to use the
+following columns to determine the experience:
+
+\begin{verbatim}
+<li>GenderSelect</li>
+<li>Country</li>
+<li>Age</li>
+<li>EmploymentStatus</li>
+<li>CodeWriter</li>
+<li>CurrentJobTitleSelect</li>
+<li>MLToolNextYearSelect</li>
+<li>MLMethodNextYearSelect</li>
+<li>LanguageRecommendationSelect</li>
+<li>FormalEducation</li>
+<li>MajorSelect</li>
+<li>Tenure</li>
+<li>FirstTrainingSelect</li>
+<li>LearningCategorySelftTaught</li>
+<li>LearningCategoryOnlineCourses</li>
+<li>LearningCategoryWork</li>
+<li>LearningCategoryUniversity</li>
+<li>LearningCategoryKaggle</li>
+<li>LearningCategoryOther</li>
+\end{verbatim}
+
+    \subsection{Part A - Get Some Data}\label{part-a---get-some-data}
+
+    To analyse the data, first we will import the dataset to the notebook
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}429}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline 
+          \PY{k+kn}{import} \PY{n+nn}{warnings}
+          \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{k+kn}{import} \PY{n+nn}{sklearn}
+          
+          \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{model\PYZus{}selection}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{classification\PYZus{}report}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{discriminant\PYZus{}analysis} \PY{k}{import} \PY{n}{LinearDiscriminantAnalysis}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{GaussianNB}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVC}
+          
+          \PY{n}{response}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./kaggle\PYZus{}ds\PYZus{}survey.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ISO\PYZhy{}8859\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{low\PYZus{}memory}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{response}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}429}]:}                                         GenderSelect        Country   Age  \textbackslash{}
+          0  Non-binary, genderqueer, or gender non-conforming            NaN   NaN   
+          1                                             Female  United States  30.0   
+          2                                               Male         Canada  28.0   
+          3                                               Male  United States  56.0   
+          4                                               Male         Taiwan  38.0   
+          
+                                              EmploymentStatus StudentStatus  \textbackslash{}
+          0                                 Employed full-time           NaN   
+          1                 Not employed, but looking for work           NaN   
+          2                 Not employed, but looking for work           NaN   
+          3  Independent contractor, freelancer, or self-em{\ldots}           NaN   
+          4                                 Employed full-time           NaN   
+          
+            LearningDataScience CodeWriter CareerSwitcher  \textbackslash{}
+          0                 NaN        Yes            NaN   
+          1                 NaN        NaN            NaN   
+          2                 NaN        NaN            NaN   
+          3                 NaN        Yes            NaN   
+          4                 NaN        Yes            NaN   
+          
+                        CurrentJobTitleSelect TitleFit              {\ldots}                \textbackslash{}
+          0             DBA/Database Engineer     Fine              {\ldots}                 
+          1                               NaN      NaN              {\ldots}                 
+          2                               NaN      NaN              {\ldots}                 
+          3  Operations Research Practitioner   Poorly              {\ldots}                 
+          4                Computer Scientist     Fine              {\ldots}                 
+          
+            JobFactorExperienceLevel JobFactorDepartment  JobFactorTitle  \textbackslash{}
+          0                      NaN                 NaN             NaN   
+          1                      NaN                 NaN             NaN   
+          2           Very Important      Very Important  Very Important   
+          3                      NaN                 NaN             NaN   
+          4                      NaN                 NaN             NaN   
+          
+            JobFactorCompanyFunding JobFactorImpact JobFactorRemote JobFactorIndustry  \textbackslash{}
+          0                     NaN             NaN             NaN               NaN   
+          1                     NaN             NaN             NaN               NaN   
+          2          Very Important  Very Important  Very Important    Very Important   
+          3                     NaN             NaN             NaN               NaN   
+          4                     NaN             NaN             NaN               NaN   
+          
+            JobFactorLeaderReputation JobFactorDiversity JobFactorPublishingOpportunity  
+          0                       NaN                NaN                            NaN  
+          1        Somewhat important                NaN                            NaN  
+          2            Very Important     Very Important                 Very Important  
+          3                       NaN                NaN                            NaN  
+          4                       NaN                NaN                            NaN  
+          
+          [5 rows x 228 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}430}]:} \PY{n}{response}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 16716 entries, 0 to 16715
+Columns: 228 entries, GenderSelect to JobFactorPublishingOpportunity
+dtypes: float64(13), object(215)
+memory usage: 29.1+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}431}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The total number of respondents:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{response}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total number of Countries with respondents:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country with highest respondents:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{with}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{respondents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Youngest respondent:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ and Oldest respondent:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The total number of respondents: 16716
+Total number of Countries with respondents: 52
+Country with highest respondents: United States with 4197 respondents
+Youngest respondent: 0.0  and Oldest respondent: 100.0
+
+    \end{Verbatim}
+
+    \subsubsection{Data cleaning}\label{data-cleaning}
+
+    \paragraph{Remove or impute any bad
+data.}\label{remove-or-impute-any-bad-data.}
+
+    Before we begin the Exploratory data analysis (EDA), we will first
+select the required column for the data frame
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}432}]:} \PY{n}{response} \PY{o}{=} \PY{n}{response}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GenderSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EmploymentStatus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CodeWriter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CurrentJobTitleSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MLToolNextYearSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MLMethodNextYearSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LanguageRecommendationSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FormalEducation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MajorSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tenure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FirstTrainingSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LearningCategorySelftTaught}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LearningCategoryOnlineCourses}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LearningCategoryWork}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LearningCategoryUniversity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LearningCategoryKaggle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LearningCategoryOther}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{response}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+          \PY{n}{reponse\PYZus{}1} \PY{o}{=} \PY{n}{response}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 16716 entries, 0 to 16715
+Data columns (total 19 columns):
+GenderSelect                     16621 non-null object
+Country                          16595 non-null object
+Age                              16385 non-null float64
+EmploymentStatus                 16716 non-null object
+CodeWriter                       13186 non-null object
+CurrentJobTitleSelect            11830 non-null object
+MLToolNextYearSelect             10998 non-null object
+MLMethodNextYearSelect           10833 non-null object
+LanguageRecommendationSelect     10998 non-null object
+FormalEducation                  15015 non-null object
+MajorSelect                      13281 non-null object
+Tenure                           13532 non-null object
+FirstTrainingSelect              14712 non-null object
+LearningCategorySelftTaught      13109 non-null float64
+LearningCategoryOnlineCourses    13126 non-null float64
+LearningCategoryWork             13111 non-null float64
+LearningCategoryUniversity       13122 non-null float64
+LearningCategoryKaggle           13126 non-null float64
+LearningCategoryOther            13094 non-null float64
+dtypes: float64(7), object(12)
+memory usage: 2.4+ MB
+
+    \end{Verbatim}
+
+    \paragraph{Are there missing values? (10
+\%)}\label{are-there-missing-values-10}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}433}]:} \PY{n}{response}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}433}]:} GenderSelect                       95
+          Country                           121
+          Age                               331
+          EmploymentStatus                    0
+          CodeWriter                       3530
+          CurrentJobTitleSelect            4886
+          MLToolNextYearSelect             5718
+          MLMethodNextYearSelect           5883
+          LanguageRecommendationSelect     5718
+          FormalEducation                  1701
+          MajorSelect                      3435
+          Tenure                           3184
+          FirstTrainingSelect              2004
+          LearningCategorySelftTaught      3607
+          LearningCategoryOnlineCourses    3590
+          LearningCategoryWork             3605
+          LearningCategoryUniversity       3594
+          LearningCategoryKaggle           3590
+          LearningCategoryOther            3622
+          dtype: int64
+\end{Verbatim}
+            
+    From the above calculations, we can clearly say that there is alot of
+null/empty columns in the given data set
+
+So before we try to learn more about or data set, lets first clean all
+the null values of the dataframe
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}434}]:} \PY{n}{response} \PY{o}{=} \PY{n}{response}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+          \PY{n}{response}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}434}]:} GenderSelect                     0
+          Country                          0
+          Age                              0
+          EmploymentStatus                 0
+          CodeWriter                       0
+          CurrentJobTitleSelect            0
+          MLToolNextYearSelect             0
+          MLMethodNextYearSelect           0
+          LanguageRecommendationSelect     0
+          FormalEducation                  0
+          MajorSelect                      0
+          Tenure                           0
+          FirstTrainingSelect              0
+          LearningCategorySelftTaught      0
+          LearningCategoryOnlineCourses    0
+          LearningCategoryWork             0
+          LearningCategoryUniversity       0
+          LearningCategoryKaggle           0
+          LearningCategoryOther            0
+          dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}435}]:} \PY{n}{response}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 6894 entries, 3 to 16712
+Data columns (total 19 columns):
+GenderSelect                     6894 non-null object
+Country                          6894 non-null object
+Age                              6894 non-null float64
+EmploymentStatus                 6894 non-null object
+CodeWriter                       6894 non-null object
+CurrentJobTitleSelect            6894 non-null object
+MLToolNextYearSelect             6894 non-null object
+MLMethodNextYearSelect           6894 non-null object
+LanguageRecommendationSelect     6894 non-null object
+FormalEducation                  6894 non-null object
+MajorSelect                      6894 non-null object
+Tenure                           6894 non-null object
+FirstTrainingSelect              6894 non-null object
+LearningCategorySelftTaught      6894 non-null float64
+LearningCategoryOnlineCourses    6894 non-null float64
+LearningCategoryWork             6894 non-null float64
+LearningCategoryUniversity       6894 non-null float64
+LearningCategoryKaggle           6894 non-null float64
+LearningCategoryOther            6894 non-null float64
+dtypes: float64(7), object(12)
+memory usage: 1.1+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}436}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The total number of respondents:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{response}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total number of Countries with respondents:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country with highest respondents:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{with}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{respondents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Youngest respondent:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ and Oldest respondent:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The total number of respondents: 6894
+Total number of Countries with respondents: 52
+Country with highest respondents: United States with 1852 respondents
+Youngest respondent: 0.0  and Oldest respondent: 100.0
+
+    \end{Verbatim}
+
+    We can now observe that our dataframe is cleansed of null or empty
+values from the column we require. We have now 6894 rows out of 16716
+total response
+
+    Now we can proceed with exploring our data
+
+    \subsubsection{Exploring the data}\label{exploring-the-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}437}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{22}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GenderSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{order}\PY{o}{=}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GenderSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}438}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{22}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EmploymentStatus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{order}\PY{o}{=}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EmploymentStatus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}439}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{22}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CodeWriter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{order}\PY{o}{=}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CodeWriter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Are there inappropraite values? (10
+\%)}\label{are-there-inappropraite-values-10}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}440}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Youngest respondent:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ and Oldest respondent:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Youngest respondent: 0.0  and Oldest respondent: 100.0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}441}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{110}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age Distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    It is not possible to have Kaggle Data science users with the age either
+0 or 100. So to make this data appropriate, I have chosen that all the
+user below the age of 15 and the age above 85 is invalid data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}442}]:} \PY{n}{response} \PY{o}{=} \PY{n}{response}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{l+m+mi}{15}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{85}\PY{p}{)}\PY{p}{]}
+          \PY{n}{response}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 6883 entries, 3 to 16712
+Data columns (total 19 columns):
+GenderSelect                     6883 non-null object
+Country                          6883 non-null object
+Age                              6883 non-null float64
+EmploymentStatus                 6883 non-null object
+CodeWriter                       6883 non-null object
+CurrentJobTitleSelect            6883 non-null object
+MLToolNextYearSelect             6883 non-null object
+MLMethodNextYearSelect           6883 non-null object
+LanguageRecommendationSelect     6883 non-null object
+FormalEducation                  6883 non-null object
+MajorSelect                      6883 non-null object
+Tenure                           6883 non-null object
+FirstTrainingSelect              6883 non-null object
+LearningCategorySelftTaught      6883 non-null float64
+LearningCategoryOnlineCourses    6883 non-null float64
+LearningCategoryWork             6883 non-null float64
+LearningCategoryUniversity       6883 non-null float64
+LearningCategoryKaggle           6883 non-null float64
+LearningCategoryOther            6883 non-null float64
+dtypes: float64(7), object(12)
+memory usage: 1.1+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}443}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age Distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}444}]:} \PY{n}{response}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}444}]:}                Age  LearningCategorySelftTaught  \textbackslash{}
+          count  6883.000000                  6883.000000   
+          mean     34.175795                    33.255848   
+          std       9.870546                    25.254476   
+          min      16.000000                     0.000000   
+          25\%      27.000000                    15.000000   
+          50\%      32.000000                    30.000000   
+          75\%      39.000000                    50.000000   
+          max      80.000000                   100.000000   
+          
+                 LearningCategoryOnlineCourses  LearningCategoryWork  \textbackslash{}
+          count                    6883.000000           6883.000000   
+          mean                       26.457141             16.679045   
+          std                        26.096310             19.285703   
+          min                         0.000000              0.000000   
+          25\%                         5.000000              0.000000   
+          50\%                        20.000000             10.000000   
+          75\%                        40.000000             30.000000   
+          max                       100.000000            100.000000   
+          
+                 LearningCategoryUniversity  LearningCategoryKaggle  \textbackslash{}
+          count                 6883.000000             6883.000000   
+          mean                    16.469999                5.504068   
+          std                     22.719447               10.683210   
+          min                      0.000000                0.000000   
+          25\%                      0.000000                0.000000   
+          50\%                      5.000000                0.000000   
+          75\%                     30.000000               10.000000   
+          max                    100.000000              100.000000   
+          
+                 LearningCategoryOther  
+          count            6883.000000  
+          mean                1.633900  
+          std                 8.757833  
+          min                 0.000000  
+          25\%                 0.000000  
+          50\%                 0.000000  
+          75\%                 0.000000  
+          max               100.000000  
+\end{Verbatim}
+            
+    Next we are going to make all the category type values to the data
+format of category in the dataframe
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}445}]:} \PY{n}{col} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GenderSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EmploymentStatus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CodeWriter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CurrentJobTitleSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MLToolNextYearSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MLMethodNextYearSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LanguageRecommendationSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FormalEducation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MajorSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tenure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FirstTrainingSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{response\PYZus{}new} \PY{o}{=} \PY{n}{response}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{col}\PY{p}{:}
+              \PY{n}{response\PYZus{}new}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{response\PYZus{}new}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+          \PY{n}{response\PYZus{}new}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}445}]:}   GenderSelect        Country   Age  \textbackslash{}
+          3         Male  United States  56.0   
+          4         Male         Taiwan  38.0   
+          5         Male         Brazil  46.0   
+          6         Male  United States  35.0   
+          7       Female          India  22.0   
+          
+                                              EmploymentStatus CodeWriter  \textbackslash{}
+          3  Independent contractor, freelancer, or self-em{\ldots}        Yes   
+          4                                 Employed full-time        Yes   
+          5                                 Employed full-time        Yes   
+          6                                 Employed full-time        Yes   
+          7                                 Employed full-time         No   
+          
+                            CurrentJobTitleSelect  MLToolNextYearSelect  \textbackslash{}
+          3      Operations Research Practitioner            TensorFlow   
+          4                    Computer Scientist            TensorFlow   
+          5                        Data Scientist            TensorFlow   
+          6                    Computer Scientist            TensorFlow   
+          7  Software Developer/Software Engineer  Google Cloud Compute   
+          
+                        MLMethodNextYearSelect LanguageRecommendationSelect  \textbackslash{}
+          3                        Neural Nets                       Python   
+          4                        Text Mining                       Python   
+          5  Genetic \& Evolutionary Algorithms                       Python   
+          6                        Text Mining                            R   
+          7                      Deep learning                          SQL   
+          
+               FormalEducation                         MajorSelect              Tenure  \textbackslash{}
+          3    Master's degree           Mathematics or statistics  More than 10 years   
+          4    Doctoral degree  Engineering (non-computer focused)  More than 10 years   
+          5    Doctoral degree              Electrical Engineering       6 to 10 years   
+          6    Master's degree              Electrical Engineering  More than 10 years   
+          7  Bachelor's degree                    Computer Science        1 to 2 years   
+          
+                                     FirstTrainingSelect  LearningCategorySelftTaught  \textbackslash{}
+          3                           University courses                         30.0   
+          4                           University courses                         60.0   
+          5  Online courses (coursera, udemy, edx, etc.)                         45.0   
+          6                           University courses                         40.0   
+          7                           University courses                          0.0   
+          
+             LearningCategoryOnlineCourses  LearningCategoryWork  \textbackslash{}
+          3                            0.0                  40.0   
+          4                            5.0                   5.0   
+          5                           25.0                  20.0   
+          6                            0.0                   0.0   
+          7                           40.0                   0.0   
+          
+             LearningCategoryUniversity  LearningCategoryKaggle  LearningCategoryOther  
+          3                        30.0                     0.0                    0.0  
+          4                        30.0                     0.0                    0.0  
+          5                         0.0                    10.0                    0.0  
+          6                        50.0                    10.0                    0.0  
+          7                        50.0                    10.0                    0.0  
+\end{Verbatim}
+            
+    \subsubsection{Understanding Each
+column}\label{understanding-each-column}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}446}]:} \PY{n}{response}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 6883 entries, 3 to 16712
+Data columns (total 19 columns):
+GenderSelect                     6883 non-null category
+Country                          6883 non-null category
+Age                              6883 non-null category
+EmploymentStatus                 6883 non-null category
+CodeWriter                       6883 non-null category
+CurrentJobTitleSelect            6883 non-null category
+MLToolNextYearSelect             6883 non-null category
+MLMethodNextYearSelect           6883 non-null category
+LanguageRecommendationSelect     6883 non-null category
+FormalEducation                  6883 non-null category
+MajorSelect                      6883 non-null category
+Tenure                           6883 non-null category
+FirstTrainingSelect              6883 non-null category
+LearningCategorySelftTaught      6883 non-null float64
+LearningCategoryOnlineCourses    6883 non-null float64
+LearningCategoryWork             6883 non-null float64
+LearningCategoryUniversity       6883 non-null float64
+LearningCategoryKaggle           6883 non-null float64
+LearningCategoryOther            6883 non-null float64
+dtypes: category(13), float64(6)
+memory usage: 476.7 KB
+
+    \end{Verbatim}
+
+    \paragraph{How is the data
+distributed?}\label{how-is-the-data-distributed}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}447}]:} \PY{n}{response}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}447}]:}        LearningCategorySelftTaught  LearningCategoryOnlineCourses  \textbackslash{}
+          count                  6883.000000                    6883.000000   
+          mean                     33.255848                      26.457141   
+          std                      25.254476                      26.096310   
+          min                       0.000000                       0.000000   
+          25\%                      15.000000                       5.000000   
+          50\%                      30.000000                      20.000000   
+          75\%                      50.000000                      40.000000   
+          max                     100.000000                     100.000000   
+          
+                 LearningCategoryWork  LearningCategoryUniversity  \textbackslash{}
+          count           6883.000000                 6883.000000   
+          mean              16.679045                   16.469999   
+          std               19.285703                   22.719447   
+          min                0.000000                    0.000000   
+          25\%                0.000000                    0.000000   
+          50\%               10.000000                    5.000000   
+          75\%               30.000000                   30.000000   
+          max              100.000000                  100.000000   
+          
+                 LearningCategoryKaggle  LearningCategoryOther  
+          count             6883.000000            6883.000000  
+          mean                 5.504068               1.633900  
+          std                 10.683210               8.757833  
+          min                  0.000000               0.000000  
+          25\%                  0.000000               0.000000  
+          50\%                  0.000000               0.000000  
+          75\%                 10.000000               0.000000  
+          max                100.000000             100.000000  
+\end{Verbatim}
+            
+    \paragraph{What are the summary
+statistics?}\label{what-are-the-summary-statistics}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}448}]:} \PY{n}{response}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{exclude}\PY{o}{=}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{number}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}448}]:}        GenderSelect        Country     Age    EmploymentStatus CodeWriter  \textbackslash{}
+          count          6883           6883  6883.0                6883       6883   
+          unique            4             52    63.0                   4          2   
+          top            Male  United States    27.0  Employed full-time        Yes   
+          freq           5832           1847   382.0                5740       5500   
+          
+                 CurrentJobTitleSelect MLToolNextYearSelect MLMethodNextYearSelect  \textbackslash{}
+          count                   6883                 6883                   6883   
+          unique                    16                   51                     25   
+          top           Data Scientist           TensorFlow          Deep learning   
+          freq                    1575                 1782                   2820   
+          
+                 LanguageRecommendationSelect  FormalEducation       MajorSelect  \textbackslash{}
+          count                          6883             6883              6883   
+          unique                           13                5                15   
+          top                          Python  Master's degree  Computer Science   
+          freq                           4358             3197              2040   
+          
+                        Tenure                          FirstTrainingSelect  
+          count           6883                                         6883  
+          unique             6                                            6  
+          top     3 to 5 years  Online courses (coursera, udemy, edx, etc.)  
+          freq            1791                                         2423  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}449}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{col}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{response\PYZus{}new}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+GenderSelect
+[Male, Female, A different identity, Non-binary, genderqueer, or gender non-conforming]
+Categories (4, object): [Male, Female, A different identity, Non-binary, genderqueer, or gender non-conforming]
+
+Country
+[United States, Taiwan, Brazil, India, Russia, {\ldots}, Republic of China, Israel, Greece, Norway, Egypt]
+Length: 52
+Categories (52, object): [United States, Taiwan, Brazil, India, {\ldots}, Israel, Greece, Norway, Egypt]
+
+Age
+[56.0, 38.0, 46.0, 35.0, 22.0, {\ldots}, 77.0, 17.0, 79.0, 78.0, 71.0]
+Length: 63
+Categories (63, float64): [56.0, 38.0, 46.0, 35.0, {\ldots}, 17.0, 79.0, 78.0, 71.0]
+
+EmploymentStatus
+[Independent contractor, freelancer, or self-em{\ldots}, Employed full-time, Employed part-time, Retired]
+Categories (4, object): [Independent contractor, freelancer, or self-em{\ldots}, Employed full-time, Employed part-time, Retired]
+
+CodeWriter
+[Yes, No]
+Categories (2, object): [Yes, No]
+
+CurrentJobTitleSelect
+[Operations Research Practitioner, Computer Scientist, Data Scientist, Software Developer/Software Engineer, DBA/Database Engineer, {\ldots}, Statistician, Predictive Modeler, Business Analyst, Programmer, Data Miner]
+Length: 16
+Categories (16, object): [Operations Research Practitioner, Computer Scientist, Data Scientist, Software Developer/Software Engineer, {\ldots}, Predictive Modeler, Business Analyst, Programmer, Data Miner]
+
+MLToolNextYearSelect
+[TensorFlow, Google Cloud Compute, C/C++, Other, Python, {\ldots}, IBM Cognos, Salfrod Systems CART/MARS/TreeNet/RF/SPM, Impala, Statistica (Quest/Dell-formerly Statsoft), SAS JMP]
+Length: 51
+Categories (51, object): [TensorFlow, Google Cloud Compute, C/C++, Other, {\ldots}, Salfrod Systems CART/MARS/TreeNet/RF/SPM, Impala, Statistica (Quest/Dell-formerly Statsoft), SAS JMP]
+
+MLMethodNextYearSelect
+[Neural Nets, Text Mining, Genetic \& Evolutionary Algorithms, Deep learning, Rule Induction, {\ldots}, Decision Trees, Association Rules, Support Vector Machines (SVM), Uplift Modeling, Link Analysis]
+Length: 25
+Categories (25, object): [Neural Nets, Text Mining, Genetic \& Evolutionary Algorithms, Deep learning, {\ldots}, Association Rules, Support Vector Machines (SVM), Uplift Modeling, Link Analysis]
+
+LanguageRecommendationSelect
+[Python, R, SQL, Java, Matlab, {\ldots}, C/C++/C\#, Other, Scala, Haskell, F\#]
+Length: 13
+Categories (13, object): [Python, R, SQL, Java, {\ldots}, Other, Scala, Haskell, F\#]
+
+FormalEducation
+[Master's degree, Doctoral degree, Bachelor's degree, Some college/university study without earning {\ldots}, I prefer not to answer]
+Categories (5, object): [Master's degree, Doctoral degree, Bachelor's degree, Some college/university study without earning {\ldots}, I prefer not to answer]
+
+MajorSelect
+[Mathematics or statistics, Engineering (non-computer focused), Electrical Engineering, Computer Science, Other, {\ldots}, A humanities discipline, Fine arts or performing arts, Management information systems, Psychology, I never declared a major]
+Length: 15
+Categories (15, object): [Mathematics or statistics, Engineering (non-computer focused), Electrical Engineering, Computer Science, {\ldots}, Fine arts or performing arts, Management information systems, Psychology, I never declared a major]
+
+Tenure
+[More than 10 years, 6 to 10 years, 1 to 2 years, 3 to 5 years, Less than a year, I don't write code to analyze data]
+Categories (6, object): [More than 10 years, 6 to 10 years, 1 to 2 years, 3 to 5 years, Less than a year, I don't write code to analyze data]
+
+FirstTrainingSelect
+[University courses, Online courses (coursera, udemy, edx, etc.), Self-taught, Kaggle competitions, Work, Other]
+Categories (6, object): [University courses, Online courses (coursera, udemy, edx, etc.), Self-taught, Kaggle competitions, Work, Other]
+
+
+    \end{Verbatim}
+
+    Form the above 2 columns we can understand the category destirbution and
+the range in age and learning hours column
+
+    \paragraph{Are there
+anomalies/outliers?}\label{are-there-anomaliesoutliers}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}450}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LearningCategorySelftTaught}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{110}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LearningCategorySelftTaught}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}451}]:} \PY{k+kn}{import} \PY{n+nn}{itertools}
+          \PY{n}{Learningtype}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LearningCategorySelftTaught}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LearningCategoryOnlineCourses}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LearningCategoryWork}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LearningCategoryUniversity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LearningCategoryKaggle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LearningCategoryOther}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WorkToolsFrequencyAmazonML}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WorkToolsFrequencyAWS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WorkToolsFrequencyCloudera}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WorkToolsFrequencyHadoop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WorkToolsFrequencyAzure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+          \PY{n}{length}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{cloud}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{j} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{zip\PYZus{}longest}\PY{p}{(}\PY{n}{Learningtype}\PY{p}{,}\PY{n+nb}{range}\PY{p}{(}\PY{n}{length}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{p}{(}\PY{n}{length}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{j}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+              \PY{n}{response\PYZus{}new}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of people}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hours}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We observe that there are no more outlier in the data set taken.
+
+    \subsubsection{Are any of the columns
+correlated?}\label{are-any-of-the-columns-correlated}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}452}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{response\PYZus{}new}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}452}]:} <seaborn.axisgrid.PairGrid at 0x174256ee860>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}453}]:} \PY{n}{cor} \PY{o}{=} \PY{n}{response\PYZus{}new}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+          \PY{n}{cor}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}453}]:}                                LearningCategorySelftTaught  \textbackslash{}
+          LearningCategorySelftTaught                       1.000000   
+          LearningCategoryOnlineCourses                    -0.391676   
+          LearningCategoryWork                             -0.257017   
+          LearningCategoryUniversity                       -0.346929   
+          LearningCategoryKaggle                           -0.124464   
+          LearningCategoryOther                            -0.098735   
+          
+                                         LearningCategoryOnlineCourses  \textbackslash{}
+          LearningCategorySelftTaught                        -0.391676   
+          LearningCategoryOnlineCourses                       1.000000   
+          LearningCategoryWork                               -0.323589   
+          LearningCategoryUniversity                         -0.372012   
+          LearningCategoryKaggle                             -0.071167   
+          LearningCategoryOther                              -0.085854   
+          
+                                         LearningCategoryWork  \textbackslash{}
+          LearningCategorySelftTaught               -0.257017   
+          LearningCategoryOnlineCourses             -0.323589   
+          LearningCategoryWork                       1.000000   
+          LearningCategoryUniversity                -0.105954   
+          LearningCategoryKaggle                    -0.117690   
+          LearningCategoryOther                     -0.078316   
+          
+                                         LearningCategoryUniversity  \textbackslash{}
+          LearningCategorySelftTaught                     -0.346929   
+          LearningCategoryOnlineCourses                   -0.372012   
+          LearningCategoryWork                            -0.105954   
+          LearningCategoryUniversity                       1.000000   
+          LearningCategoryKaggle                          -0.133029   
+          LearningCategoryOther                           -0.089657   
+          
+                                         LearningCategoryKaggle  LearningCategoryOther  
+          LearningCategorySelftTaught                 -0.124464              -0.098735  
+          LearningCategoryOnlineCourses               -0.071167              -0.085854  
+          LearningCategoryWork                        -0.117690              -0.078316  
+          LearningCategoryUniversity                  -0.133029              -0.089657  
+          LearningCategoryKaggle                       1.000000              -0.044604  
+          LearningCategoryOther                       -0.044604               1.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}454}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{cor}\PY{p}{,}\PY{n}{xticklabels}\PY{o}{=}\PY{n}{cor}\PY{o}{.}\PY{n}{columns}\PY{p}{,}\PY{n}{yticklabels}\PY{o}{=}\PY{n}{cor}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}454}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x17431c2efd0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}455}]:} \PY{n}{response\PYZus{}new}
+          \PY{n}{response\PYZus{}new\PYZus{}dummies} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{response\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EmploymentStatus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{response\PYZus{}new\PYZus{}dummies}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}455}]:}        Employed full-time  Employed part-time  \textbackslash{}
+          3                       0                   0   
+          4                       1                   0   
+          5                       1                   0   
+          6                       1                   0   
+          7                       1                   0   
+          9                       1                   0   
+          11                      1                   0   
+          14                      1                   0   
+          15                      0                   0   
+          20                      0                   0   
+          21                      0                   1   
+          22                      1                   0   
+          23                      0                   1   
+          25                      1                   0   
+          26                      1                   0   
+          27                      1                   0   
+          31                      1                   0   
+          32                      1                   0   
+          33                      1                   0   
+          34                      1                   0   
+          37                      1                   0   
+          39                      0                   0   
+          41                      1                   0   
+          42                      1                   0   
+          44                      1                   0   
+          45                      0                   1   
+          46                      0                   0   
+          55                      1                   0   
+          59                      1                   0   
+          61                      0                   1   
+          {\ldots}                   {\ldots}                 {\ldots}   
+          16283                   1                   0   
+          16298                   1                   0   
+          16300                   1                   0   
+          16309                   1                   0   
+          16325                   0                   1   
+          16343                   0                   1   
+          16350                   1                   0   
+          16352                   0                   1   
+          16355                   1                   0   
+          16363                   1                   0   
+          16372                   1                   0   
+          16382                   0                   1   
+          16394                   0                   1   
+          16411                   0                   0   
+          16423                   0                   0   
+          16426                   1                   0   
+          16430                   1                   0   
+          16445                   1                   0   
+          16448                   1                   0   
+          16495                   0                   0   
+          16507                   1                   0   
+          16517                   1                   0   
+          16550                   0                   1   
+          16577                   1                   0   
+          16608                   1                   0   
+          16631                   1                   0   
+          16664                   0                   1   
+          16681                   1                   0   
+          16687                   0                   0   
+          16712                   1                   0   
+          
+                 Independent contractor, freelancer, or self-employed  Retired  
+          3                                                      1           0  
+          4                                                      0           0  
+          5                                                      0           0  
+          6                                                      0           0  
+          7                                                      0           0  
+          9                                                      0           0  
+          11                                                     0           0  
+          14                                                     0           0  
+          15                                                     1           0  
+          20                                                     1           0  
+          21                                                     0           0  
+          22                                                     0           0  
+          23                                                     0           0  
+          25                                                     0           0  
+          26                                                     0           0  
+          27                                                     0           0  
+          31                                                     0           0  
+          32                                                     0           0  
+          33                                                     0           0  
+          34                                                     0           0  
+          37                                                     0           0  
+          39                                                     0           1  
+          41                                                     0           0  
+          42                                                     0           0  
+          44                                                     0           0  
+          45                                                     0           0  
+          46                                                     1           0  
+          55                                                     0           0  
+          59                                                     0           0  
+          61                                                     0           0  
+          {\ldots}                                                  {\ldots}         {\ldots}  
+          16283                                                  0           0  
+          16298                                                  0           0  
+          16300                                                  0           0  
+          16309                                                  0           0  
+          16325                                                  0           0  
+          16343                                                  0           0  
+          16350                                                  0           0  
+          16352                                                  0           0  
+          16355                                                  0           0  
+          16363                                                  0           0  
+          16372                                                  0           0  
+          16382                                                  0           0  
+          16394                                                  0           0  
+          16411                                                  0           1  
+          16423                                                  1           0  
+          16426                                                  0           0  
+          16430                                                  0           0  
+          16445                                                  0           0  
+          16448                                                  0           0  
+          16495                                                  1           0  
+          16507                                                  0           0  
+          16517                                                  0           0  
+          16550                                                  0           0  
+          16577                                                  0           0  
+          16608                                                  0           0  
+          16631                                                  0           0  
+          16664                                                  0           0  
+          16681                                                  0           0  
+          16687                                                  1           0  
+          16712                                                  0           0  
+          
+          [6883 rows x 4 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}456}]:} \PY{n}{col} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GenderSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EmploymentStatus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CodeWriter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tenure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CurrentJobTitleSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MLToolNextYearSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MLMethodNextYearSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LanguageRecommendationSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FormalEducation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MajorSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FirstTrainingSelect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{response\PYZus{}new\PYZus{}cat} \PY{o}{=} \PY{n}{response}
+          
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{col}\PY{p}{:}
+              \PY{n}{response\PYZus{}new\PYZus{}cat}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{response\PYZus{}new\PYZus{}cat}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{response\PYZus{}new\PYZus{}cat}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{response\PYZus{}new\PYZus{}cat}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+              
+          \PY{n}{response\PYZus{}new\PYZus{}cat}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}456}]:}    GenderSelect  Country  Age  EmploymentStatus  CodeWriter  \textbackslash{}
+          3             2       50   40                 2           1   
+          4             2       46   22                 0           1   
+          5             2        4   30                 0           1   
+          6             2       50   19                 0           1   
+          7             1       17    6                 0           0   
+          
+             CurrentJobTitleSelect  MLToolNextYearSelect  MLMethodNextYearSelect  \textbackslash{}
+          3                      8                    48                      13   
+          4                      1                    48                      22   
+          5                      5                    48                       8   
+          6                      1                    48                      22   
+          7                     14                     7                       5   
+          
+             LanguageRecommendationSelect  FormalEducation  MajorSelect  Tenure  \textbackslash{}
+          3                             7                3           11       5   
+          4                             7                1            6       5   
+          5                             7                1            5       2   
+          6                             8                3            5       5   
+          7                            10                0            4       0   
+          
+             FirstTrainingSelect  LearningCategorySelftTaught  \textbackslash{}
+          3                    4                         30.0   
+          4                    4                         60.0   
+          5                    1                         45.0   
+          6                    4                         40.0   
+          7                    4                          0.0   
+          
+             LearningCategoryOnlineCourses  LearningCategoryWork  \textbackslash{}
+          3                            0.0                  40.0   
+          4                            5.0                   5.0   
+          5                           25.0                  20.0   
+          6                            0.0                   0.0   
+          7                           40.0                   0.0   
+          
+             LearningCategoryUniversity  LearningCategoryKaggle  LearningCategoryOther  
+          3                        30.0                     0.0                    0.0  
+          4                        30.0                     0.0                    0.0  
+          5                         0.0                    10.0                    0.0  
+          6                        50.0                    10.0                    0.0  
+          7                        50.0                    10.0                    0.0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}457}]:} \PY{n}{cor\PYZus{}cat} \PY{o}{=} \PY{n}{response\PYZus{}new\PYZus{}cat}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+          \PY{n}{cor\PYZus{}cat}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}457}]:}                                GenderSelect   Country       Age  \textbackslash{}
+          GenderSelect                       1.000000 -0.059222  0.057670   
+          Country                           -0.059222  1.000000  0.119307   
+          Age                                0.057670  0.119307  1.000000   
+          EmploymentStatus                   0.000639 -0.014001  0.148635   
+          CodeWriter                        -0.001459  0.043929  0.069371   
+          CurrentJobTitleSelect              0.015101 -0.014503  0.046127   
+          MLToolNextYearSelect               0.017957 -0.011199 -0.015862   
+          MLMethodNextYearSelect            -0.025069  0.015271  0.019653   
+          LanguageRecommendationSelect      -0.003506 -0.003126  0.002234   
+          FormalEducation                   -0.026669  0.002574  0.061280   
+          MajorSelect                       -0.037466  0.026564  0.062007   
+          Tenure                             0.026944  0.062921  0.386783   
+          FirstTrainingSelect               -0.060211  0.061619  0.004848   
+          LearningCategorySelftTaught        0.064584  0.014258  0.091356   
+          LearningCategoryOnlineCourses      0.034460 -0.073699  0.000504   
+          LearningCategoryWork              -0.018422  0.049732  0.045363   
+          LearningCategoryUniversity        -0.108988  0.042891 -0.114229   
+          LearningCategoryKaggle             0.066929 -0.035710 -0.048978   
+          LearningCategoryOther             -0.047257  0.001268 -0.008760   
+          
+                                         EmploymentStatus  CodeWriter  \textbackslash{}
+          GenderSelect                           0.000639   -0.001459   
+          Country                               -0.014001    0.043929   
+          Age                                    0.148635    0.069371   
+          EmploymentStatus                       1.000000    0.003079   
+          CodeWriter                             0.003079    1.000000   
+          CurrentJobTitleSelect                  0.033825   -0.141354   
+          MLToolNextYearSelect                  -0.033856   -0.013620   
+          MLMethodNextYearSelect                 0.036384   -0.024071   
+          LanguageRecommendationSelect          -0.045179    0.054331   
+          FormalEducation                        0.026910    0.037693   
+          MajorSelect                            0.008526    0.065927   
+          Tenure                                 0.055497   -0.069601   
+          FirstTrainingSelect                   -0.023007    0.172661   
+          LearningCategorySelftTaught            0.033473    0.025268   
+          LearningCategoryOnlineCourses          0.018290   -0.256555   
+          LearningCategoryWork                  -0.048769    0.307621   
+          LearningCategoryUniversity            -0.010882    0.036725   
+          LearningCategoryKaggle                -0.003654   -0.018189   
+          LearningCategoryOther                 -0.010943   -0.058890   
+          
+                                         CurrentJobTitleSelect  MLToolNextYearSelect  \textbackslash{}
+          GenderSelect                                0.015101              0.017957   
+          Country                                    -0.014503             -0.011199   
+          Age                                         0.046127             -0.015862   
+          EmploymentStatus                            0.033825             -0.033856   
+          CodeWriter                                 -0.141354             -0.013620   
+          CurrentJobTitleSelect                       1.000000             -0.009143   
+          MLToolNextYearSelect                       -0.009143              1.000000   
+          MLMethodNextYearSelect                     -0.007133             -0.058029   
+          LanguageRecommendationSelect               -0.092291              0.056396   
+          FormalEducation                            -0.034310             -0.013680   
+          MajorSelect                                -0.034351             -0.007111   
+          Tenure                                      0.078433             -0.016432   
+          FirstTrainingSelect                        -0.013231             -0.029092   
+          LearningCategorySelftTaught                 0.063079             -0.022992   
+          LearningCategoryOnlineCourses               0.035063              0.043384   
+          LearningCategoryWork                       -0.109275             -0.005323   
+          LearningCategoryUniversity                 -0.007263             -0.019644   
+          LearningCategoryKaggle                     -0.010735              0.018442   
+          LearningCategoryOther                      -0.013806             -0.022789   
+          
+                                         MLMethodNextYearSelect  \textbackslash{}
+          GenderSelect                                -0.025069   
+          Country                                      0.015271   
+          Age                                          0.019653   
+          EmploymentStatus                             0.036384   
+          CodeWriter                                  -0.024071   
+          CurrentJobTitleSelect                       -0.007133   
+          MLToolNextYearSelect                        -0.058029   
+          MLMethodNextYearSelect                       1.000000   
+          LanguageRecommendationSelect                 0.018014   
+          FormalEducation                              0.015067   
+          MajorSelect                                  0.009375   
+          Tenure                                       0.019614   
+          FirstTrainingSelect                         -0.004603   
+          LearningCategorySelftTaught                  0.021661   
+          LearningCategoryOnlineCourses               -0.000230   
+          LearningCategoryWork                        -0.009469   
+          LearningCategoryUniversity                  -0.021961   
+          LearningCategoryKaggle                      -0.005921   
+          LearningCategoryOther                        0.023265   
+          
+                                         LanguageRecommendationSelect  FormalEducation  \textbackslash{}
+          GenderSelect                                      -0.003506        -0.026669   
+          Country                                           -0.003126         0.002574   
+          Age                                                0.002234         0.061280   
+          EmploymentStatus                                  -0.045179         0.026910   
+          CodeWriter                                         0.054331         0.037693   
+          CurrentJobTitleSelect                             -0.092291        -0.034310   
+          MLToolNextYearSelect                               0.056396        -0.013680   
+          MLMethodNextYearSelect                             0.018014         0.015067   
+          LanguageRecommendationSelect                       1.000000         0.025985   
+          FormalEducation                                    0.025985         1.000000   
+          MajorSelect                                        0.022768         0.014047   
+          Tenure                                            -0.026929        -0.055484   
+          FirstTrainingSelect                               -0.027944         0.048961   
+          LearningCategorySelftTaught                       -0.052882        -0.044628   
+          LearningCategoryOnlineCourses                      0.045646        -0.045257   
+          LearningCategoryWork                               0.030364        -0.000801   
+          LearningCategoryUniversity                        -0.019273         0.105998   
+          LearningCategoryKaggle                            -0.006223         0.011477   
+          LearningCategoryOther                              0.007204        -0.023668   
+          
+                                         MajorSelect    Tenure  FirstTrainingSelect  \textbackslash{}
+          GenderSelect                     -0.037466  0.026944            -0.060211   
+          Country                           0.026564  0.062921             0.061619   
+          Age                               0.062007  0.386783             0.004848   
+          EmploymentStatus                  0.008526  0.055497            -0.023007   
+          CodeWriter                        0.065927 -0.069601             0.172661   
+          CurrentJobTitleSelect            -0.034351  0.078433            -0.013231   
+          MLToolNextYearSelect             -0.007111 -0.016432            -0.029092   
+          MLMethodNextYearSelect            0.009375  0.019614            -0.004603   
+          LanguageRecommendationSelect      0.022768 -0.026929            -0.027944   
+          FormalEducation                   0.014047 -0.055484             0.048961   
+          MajorSelect                       1.000000  0.052272             0.036808   
+          Tenure                            0.052272  1.000000             0.055171   
+          FirstTrainingSelect               0.036808  0.055171             1.000000   
+          LearningCategorySelftTaught       0.026805  0.069800             0.092472   
+          LearningCategoryOnlineCourses    -0.059623 -0.011544            -0.557219   
+          LearningCategoryWork              0.064360  0.022151             0.287385   
+          LearningCategoryUniversity       -0.013671 -0.064596             0.384424   
+          LearningCategoryKaggle            0.009029 -0.056354            -0.156831   
+          LearningCategoryOther            -0.016910  0.020659            -0.045082   
+          
+                                         LearningCategorySelftTaught  \textbackslash{}
+          GenderSelect                                      0.064584   
+          Country                                           0.014258   
+          Age                                               0.091356   
+          EmploymentStatus                                  0.033473   
+          CodeWriter                                        0.025268   
+          CurrentJobTitleSelect                             0.063079   
+          MLToolNextYearSelect                             -0.022992   
+          MLMethodNextYearSelect                            0.021661   
+          LanguageRecommendationSelect                     -0.052882   
+          FormalEducation                                  -0.044628   
+          MajorSelect                                       0.026805   
+          Tenure                                            0.069800   
+          FirstTrainingSelect                               0.092472   
+          LearningCategorySelftTaught                       1.000000   
+          LearningCategoryOnlineCourses                    -0.391676   
+          LearningCategoryWork                             -0.257017   
+          LearningCategoryUniversity                       -0.346929   
+          LearningCategoryKaggle                           -0.124464   
+          LearningCategoryOther                            -0.098735   
+          
+                                         LearningCategoryOnlineCourses  \textbackslash{}
+          GenderSelect                                        0.034460   
+          Country                                            -0.073699   
+          Age                                                 0.000504   
+          EmploymentStatus                                    0.018290   
+          CodeWriter                                         -0.256555   
+          CurrentJobTitleSelect                               0.035063   
+          MLToolNextYearSelect                                0.043384   
+          MLMethodNextYearSelect                             -0.000230   
+          LanguageRecommendationSelect                        0.045646   
+          FormalEducation                                    -0.045257   
+          MajorSelect                                        -0.059623   
+          Tenure                                             -0.011544   
+          FirstTrainingSelect                                -0.557219   
+          LearningCategorySelftTaught                        -0.391676   
+          LearningCategoryOnlineCourses                       1.000000   
+          LearningCategoryWork                               -0.323589   
+          LearningCategoryUniversity                         -0.372012   
+          LearningCategoryKaggle                             -0.071167   
+          LearningCategoryOther                              -0.085854   
+          
+                                         LearningCategoryWork  \textbackslash{}
+          GenderSelect                              -0.018422   
+          Country                                    0.049732   
+          Age                                        0.045363   
+          EmploymentStatus                          -0.048769   
+          CodeWriter                                 0.307621   
+          CurrentJobTitleSelect                     -0.109275   
+          MLToolNextYearSelect                      -0.005323   
+          MLMethodNextYearSelect                    -0.009469   
+          LanguageRecommendationSelect               0.030364   
+          FormalEducation                           -0.000801   
+          MajorSelect                                0.064360   
+          Tenure                                     0.022151   
+          FirstTrainingSelect                        0.287385   
+          LearningCategorySelftTaught               -0.257017   
+          LearningCategoryOnlineCourses             -0.323589   
+          LearningCategoryWork                       1.000000   
+          LearningCategoryUniversity                -0.105954   
+          LearningCategoryKaggle                    -0.117690   
+          LearningCategoryOther                     -0.078316   
+          
+                                         LearningCategoryUniversity  \textbackslash{}
+          GenderSelect                                    -0.108988   
+          Country                                          0.042891   
+          Age                                             -0.114229   
+          EmploymentStatus                                -0.010882   
+          CodeWriter                                       0.036725   
+          CurrentJobTitleSelect                           -0.007263   
+          MLToolNextYearSelect                            -0.019644   
+          MLMethodNextYearSelect                          -0.021961   
+          LanguageRecommendationSelect                    -0.019273   
+          FormalEducation                                  0.105998   
+          MajorSelect                                     -0.013671   
+          Tenure                                          -0.064596   
+          FirstTrainingSelect                              0.384424   
+          LearningCategorySelftTaught                     -0.346929   
+          LearningCategoryOnlineCourses                   -0.372012   
+          LearningCategoryWork                            -0.105954   
+          LearningCategoryUniversity                       1.000000   
+          LearningCategoryKaggle                          -0.133029   
+          LearningCategoryOther                           -0.089657   
+          
+                                         LearningCategoryKaggle  LearningCategoryOther  
+          GenderSelect                                 0.066929              -0.047257  
+          Country                                     -0.035710               0.001268  
+          Age                                         -0.048978              -0.008760  
+          EmploymentStatus                            -0.003654              -0.010943  
+          CodeWriter                                  -0.018189              -0.058890  
+          CurrentJobTitleSelect                       -0.010735              -0.013806  
+          MLToolNextYearSelect                         0.018442              -0.022789  
+          MLMethodNextYearSelect                      -0.005921               0.023265  
+          LanguageRecommendationSelect                -0.006223               0.007204  
+          FormalEducation                              0.011477              -0.023668  
+          MajorSelect                                  0.009029              -0.016910  
+          Tenure                                      -0.056354               0.020659  
+          FirstTrainingSelect                         -0.156831              -0.045082  
+          LearningCategorySelftTaught                 -0.124464              -0.098735  
+          LearningCategoryOnlineCourses               -0.071167              -0.085854  
+          LearningCategoryWork                        -0.117690              -0.078316  
+          LearningCategoryUniversity                  -0.133029              -0.089657  
+          LearningCategoryKaggle                       1.000000              -0.044604  
+          LearningCategoryOther                       -0.044604               1.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}458}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{cor\PYZus{}cat}\PY{p}{,}\PY{n}{xticklabels}\PY{o}{=}\PY{n}{cor\PYZus{}cat}\PY{o}{.}\PY{n}{columns}\PY{p}{,}\PY{n}{yticklabels}\PY{o}{=}\PY{n}{cor\PYZus{}cat}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}458}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1742e6f0e80>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
